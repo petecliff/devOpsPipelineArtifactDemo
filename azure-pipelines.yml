@@ -10,6 +10,14 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- download: current
+  artifact: QAResources
+
+- task: ExtractFiles@1
+  intputs:
+    archiveFilePatterns: '**/qa_resources.zip'
+    destinationFolder: '$(Build.SourcesDirectory)/QAResources'
+
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
@@ -19,3 +27,20 @@ steps:
   inputs:
     scriptSource: filePath
     scriptPath: "./build.py"
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/QAResources'
+    includeRootFolder: false
+    archiveType: 'zip'
+    replaceExistingArchive: true
+    verbose: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/QAResources'
+    artifactName: 'QAResources'
+    artifactType: 'pipeline'
+
+
+
