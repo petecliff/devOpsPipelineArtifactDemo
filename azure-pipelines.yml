@@ -14,7 +14,7 @@ steps:
     echo "##vso[task.setvariable variable=runDownload;]false"
 
 - download: current
-  artifact: QAResources
+  artifact: QA_Resources
   condition: ne(variables['runDownload'], 'false')
 
 - task: ExtractFiles@1
@@ -43,7 +43,7 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)/QA_Resources'
-    artifactName: 'QAResources'
+    artifactName: 'QA_Resources'
     artifactType: 'pipeline'
 
 
