@@ -42,7 +42,7 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.SourcesDirectory)/QAResources'
+    targetPath: '$(Build.SourcesDirectory)/QA_Resources'
     artifactName: 'QAResources'
     artifactType: 'pipeline'
 
