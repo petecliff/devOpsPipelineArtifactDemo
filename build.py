@@ -31,7 +31,7 @@ for f in files:
     print(f)
 
 existingfname = "%s/run_log.txt" % (qa_resources_prefix)
-existingf = open(existingfname, 'a')
+existingf = open(existingfname, 'ra')
 
 print("Resource file content is:");
 
