@@ -15,7 +15,7 @@ steps:
 
 - download: current
   artifact: QAResources
-  condition: ne(variables[runDownload], 'false')
+  condition: ne(variables['runDownload'], 'false')
 
 - task: ExtractFiles@1
   inputs:
