@@ -14,31 +14,36 @@ except OSError as error:
 now = datetime.now()
 
 print("Build starting on " + str(now))
-print("Environment is: ")
+print("\n\nEnvironment is: ")
 
 for key, value in os.environ.items():
     print("%s = %s" % (key, value))
 
-print("Files are:")
+print("\n\nFiles are:")
 files = []
 
 for r,d,f in os.walk("."):
     for file in f:
-        if ('.git' not in file):
+        if ('.git' not in r):
             files.append(os.path.join(r, file))
 
 for f in files:
     print(f)
 
 existingfname = "%s/run_log.txt" % (qa_resources_prefix)
-existingf = open(existingfname, 'ra')
 
-print("Resource file content is:");
+existingf = open(existingfname, 'a')
+
+existingf.write("Build run: %s\n" % str(now))
+existingf.close()
+
+existingf = open(existingfname, 'r')
+
+print("\n\nResource file %s content is:\n\n== start of file ==\n" % existingfname);
 
 for line in existingf:
     print(line)
 
 print("== end of file ===")
 
-existingf.write("Build run: %s\n" % str(now))
 existingf.close()
