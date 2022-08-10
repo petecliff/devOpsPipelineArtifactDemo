@@ -24,13 +24,21 @@ files = []
 
 for r,d,f in os.walk("."):
     for file in f:
-        files.append(os.path.join(r, file))
+        if !('.git' in file):
+          files.append(os.path.join(r, file))
 
 for f in files:
     print(f)
 
 existingfname = "%s/run_log.txt" % (qa_resources_prefix)
-
 existingf = open(existingfname, 'a')
+
+print("Resource file content is:");
+
+for line in existingf:
+    print(line)
+
+print("== end of file ===")
+
 existingf.write("Build run: %s\n" % str(now))
 existingf.close()
