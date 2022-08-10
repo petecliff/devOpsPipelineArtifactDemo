@@ -14,7 +14,7 @@ steps:
   artifact: QAResources
 
 - task: ExtractFiles@1
-  intputs:
+  inputs:
     archiveFilePatterns: '**/qa_resources.zip'
     destinationFolder: '$(Build.SourcesDirectory)/QAResources'
 
