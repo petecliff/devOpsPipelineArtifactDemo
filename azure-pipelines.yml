@@ -11,7 +11,7 @@ pool:
 
 steps:
 - bash: |
-    echo "##vso[task.setvariable variable=runDownload;]false"
+    echo "##vso[task.setvariable variable=runDownload;]true"
 
 - download: current
   artifact: QA_Resources
