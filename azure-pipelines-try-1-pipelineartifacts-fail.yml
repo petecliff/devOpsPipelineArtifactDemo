@@ -1,0 +1,45 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- bash: |
+    echo "##vso[task.setvariable variable=runDownload;]true"
+
+- download: current
+  artifact: QA_Resources
+  condition: ne(variables['runDownload'], 'false')
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '**/qa_resources.zip'
+    destinationFolder: '$(Build.SourcesDirectory)/QA_Resources'
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: filePath
+    scriptPath: "./build.py"
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/QA_Resources'
+    includeRootFolder: false
+    archiveType: 'zip'
+    replaceExistingArchive: true
+    verbose: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/QA_Resources'
+    artifactName: 'QA_Resources'
+    artifactType: 'pipeline'
+
+
+

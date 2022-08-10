@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -10,17 +5,10 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- bash: |
-    echo "##vso[task.setvariable variable=runDownload;]true"
-
-- download: current
-  artifact: QA_Resources
-  condition: ne(variables['runDownload'], 'false')
-
-- task: ExtractFiles@1
+- task: Cache@2
   inputs:
-    archiveFilePatterns: '**/qa_resources.zip'
-    destinationFolder: '$(Build.SourcesDirectory)/QA_Resources'
+    key: 'QA_Resources' # Use a variable later for dev/stage/prod might be better
+    path: './QA_Resources'
 
 - task: UsePythonVersion@0
   inputs:
@@ -31,20 +19,5 @@ steps:
   inputs:
     scriptSource: filePath
     scriptPath: "./build.py"
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/QA_Resources'
-    includeRootFolder: false
-    archiveType: 'zip'
-    replaceExistingArchive: true
-    verbose: true
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.SourcesDirectory)/QA_Resources'
-    artifactName: 'QA_Resources'
-    artifactType: 'pipeline'
-
 
 
