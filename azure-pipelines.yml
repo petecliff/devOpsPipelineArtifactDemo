@@ -9,10 +9,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+steps:
 - bash: |
     echo "##vso[task.setvariable variable=runDownload;]false"
-  
-steps:
+
 - download: current
   artifact: QAResources
   condition: ne(variables[runDownload], 'false')
