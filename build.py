@@ -19,17 +19,6 @@ print("\n\nEnvironment is: ")
 for key, value in os.environ.items():
     print("%s = %s" % (key, value))
 
-print("\n\nFiles are:")
-files = []
-
-for r,d,f in os.walk("."):
-    for file in f:
-        if ('.git' not in r):
-            files.append(os.path.join(r, file))
-
-for f in files:
-    print(f)
-
 existingfname = "%s/run_log.txt" % (qa_resources_prefix)
 
 existingf = open(existingfname, 'a')
@@ -47,3 +36,14 @@ for line in existingf:
 print("== end of file ===")
 
 existingf.close()
+
+print("\n\nFiles at end of run are:")
+files = []
+
+for r,d,f in os.walk("."):
+    for file in f:
+        if ('.git' not in r):
+            files.append(os.path.join(r, file))
+
+for f in files:
+    print(f)
