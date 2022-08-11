@@ -13,6 +13,7 @@ steps:
     command: download
     vstsFeed: 'pim-poc/QA_Resources'
     vstsFeedPackage:  'qa-resources'
+    vstsPackageVersion: '*' # latest - why not just call it latest eh microsoft?!
     downloadDirecotry: '$(Build.SourcesDirectory)/QA_Resources'
   condition: eq(variables['runDownload'], 'Yes')
 
