@@ -12,7 +12,7 @@ steps:
   inputs:
     command: download
     vstsFeed: 'pim-poc/QA_Resources'
-    vstsFeedPacakge:  'qa-resources'
+    vstsFeedPackage:  'qa-resources'
     downloadDirecotry: '$(Build.SourcesDirectory)/QA_Resources'
   condition: eq(variables['runDownload'], 'Yes')
 
