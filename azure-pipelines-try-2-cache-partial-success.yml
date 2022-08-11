@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Cache@2
+  inputs:
+    key: 'QA_Resources' # Use a variable later for dev/stage/prod might be better
+    path: './QA_Resources'
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: filePath
+    scriptPath: "./build.py"
+
+

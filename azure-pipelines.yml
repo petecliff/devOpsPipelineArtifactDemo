@@ -5,10 +5,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Cache@2
+- bash: |
+    echo "##vso[task.setvariable variable=runDownload;]No"
+
+- task: UniversalPackages@0
   inputs:
-    key: 'QA_Resources' # Use a variable later for dev/stage/prod might be better
-    path: './QA_Resources'
+    command: download
+    vstsFeed: 'pim-ui-testing/qa-resources'
+    vstsFeedPacakge:  'QA_Resources'
+    downloadDirecotry: '$(Build.SourcesDirectory)/QA_Resources'
+  condition: eq(variables['runDownload'], 'Yes')
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '**/qa_resources.zip'
+    destinationFolder: '$(Build.SourcesDirectory)/QA_Resources'
 
 - task: UsePythonVersion@0
   inputs:
@@ -19,5 +30,14 @@ steps:
   inputs:
     scriptSource: filePath
     scriptPath: "./build.py"
+
+- task: UniversalPackages@0
+  inputs:
+    command: publish
+    publishDirectory: '$(Build.SourcesDirectory)/QA_Resources'
+    vstsFeedPublish: 'pim-ui-testing/qa-resources'
+    vstsFeedPackagePublish: 'QA_Resources'
+    packagePublishDescription: 'Post-run QA resource files'
+
 
 
