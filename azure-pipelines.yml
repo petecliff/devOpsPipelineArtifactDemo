@@ -11,8 +11,8 @@ steps:
 - task: UniversalPackages@0
   inputs:
     command: download
-    vstsFeed: 'pim-ui-testing/qa-resources'
-    vstsFeedPacakge:  'QA_Resources'
+    vstsFeed: 'pim-poc/QA_Resources'
+    vstsFeedPacakge:  'qa-resources'
     downloadDirecotry: '$(Build.SourcesDirectory)/QA_Resources'
   condition: eq(variables['runDownload'], 'Yes')
 
