@@ -36,7 +36,7 @@ steps:
     command: publish
     publishDirectory: '$(Build.SourcesDirectory)/QA_Resources'
     vstsFeedPublish: 'pim-poc/QA_Resources'
-    vstsFeedPackagePublish: 'QA_Resources'
+    vstsFeedPackagePublish: 'qa-resources'
     packagePublishDescription: 'Post-run QA resource files'
 
 
